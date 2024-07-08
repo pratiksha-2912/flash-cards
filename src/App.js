@@ -1,25 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
-function App() {
+const questions = [
+  {
+    id: 1,
+    question: "You are beautiful",
+    answer: "yes",
+  },
+  {
+    id: 2,
+    question: "React is what",
+    answer: "javascript",
+  },
+  {
+    id: 3,
+    question: "You are beautiful",
+    answer: "yes",
+  },
+  {
+    id: 3,
+    question: "building blocks of react",
+    answer: "components",
+  },
+  {
+    id: 4,
+    question: "what the syntax",
+    answer: "JSX",
+  },
+  {
+    id: 5,
+    question: "Are you enjoying this",
+    answer: "yes",
+  },
+];
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <FlashCards />
     </div>
   );
 }
-
-export default App;
+function FlashCards() {
+  function handleClick(id) {
+    setSelectedId(id !== selectedId ? id : null);
+  }
+  const [selectedId, setSelectedId] = useState(null);
+  return (
+    <div className="flashcards">
+      {questions.map((question) => (
+        <div
+          key={question.id}
+          onClick={() => {
+            handleClick(question.id);
+          }}
+          className={question.id === selectedId ? "selected" : ""}
+        >
+          <p>
+            {question.id === selectedId ? question.answer : question.question}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
